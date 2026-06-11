@@ -36,4 +36,8 @@ src/main/resources/application.properties
 
 # Logs
 logs/
+<<<<<<< HEAD
 *.log
+=======
+*.log
+>>>>>>> branch 'main' of https://github.com/cordova-aronstephen/Group_2_Order_Management_REST_API-_Activity_4_-FINALS-.git
