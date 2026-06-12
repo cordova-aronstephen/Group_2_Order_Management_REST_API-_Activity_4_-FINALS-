@@ -9,8 +9,10 @@ import lombok.AllArgsConstructor;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Report {
+public class TopProduct {
 
-    private int totalOrders;
-    private double totalRevenue;
+    private int productId;
+    private String productName;
+    private int totalQuantitySold;
+    private double revenue;
 }

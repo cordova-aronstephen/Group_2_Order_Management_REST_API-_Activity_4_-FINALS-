@@ -9,9 +9,10 @@ import lombok.AllArgsConstructor;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReportRequestDTO {
+public class TopProductResponseDTO {
 
-    private String reportType;
-    private String startDate;
-    private String endDate;
+    private int productId;
+    private String productName;
+    private int totalQuantitySold;
+    private double revenue;
 }
