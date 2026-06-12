@@ -4,9 +4,41 @@
 
 <mapper namespace="com.pup.taguig.app.repository.OrdersMapper">
 
-	<resultMap id="ordersId" 
+	<resultMap id="OrdersResultMap" 
 		type="com.pup.taguig.app.model.Orders">
-			
+			<id property="orders_id" column="id"/>
+			<result property="customer_id" column="customerId"/>
+			<result property="total_quantity" column="totalQuantity"/>
+			<result property="status_id" column="statusId"/>
+			<result property="order_price_total" column="orderPriceTotal"/>
+			<result property="created_at" column="createdAt"/>
 	</resultMap>
+	
+	<resultMap id="OrderItemResultMap"
+		type="com.pup.taguig.app.model.OrderItem">
+			<id property="order_item_id" column="id"/>
+			<result property="order_id" column="orderId"/>
+			<result property="product_id" column="productId"/>
+			<result property="total_price" column="totalPrice"/>
+			<result property="quantity" column="quantity"/>
+			<result property="created_at" column="createdAt"/>
+	</resultMap>
+	
+	<resultMap id="StatusResultMap"
+		type="com.pup.taguig.app.model.Status">
+			<id property="status_id" column="id"/>
+			<result property="name" column="name"/>
+			<result property="created_at" column="createdAt"/>
+	</resultMap>
+	
+	<insert id="InsertOrder">
+		INSERT INTO orders 
+			(id, customer_id, total_quantity, status_id, order_price_total)
+		VALUES
+			(#(id), #(customer_id), #(total_quantity), #(status_id), #{order_price_total})
+	</insert>
+	
+	<select id="GetOrderById">
+	</select>
 	
 </mapper>
