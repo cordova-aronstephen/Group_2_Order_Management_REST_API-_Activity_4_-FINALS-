@@ -6,8 +6,8 @@ import com.pup.taguig.app.dto.ProductResponseDTO;
 
 public interface ProductService {
 	
-	ProductResponseDTO createProduct(ProductRequestDTO request);
-    PagedResponseDTO<ProductResponseDTO> listProducts(int page, int size);
-    ProductResponseDTO getProductById(Long id);
+	public ProductResponseDTO createProduct(ProductRequestDTO request);
+    public PagedResponseDTO<ProductResponseDTO> listProducts(int page, int size);
+    public ProductResponseDTO getProductById(Long id);
     
 }
