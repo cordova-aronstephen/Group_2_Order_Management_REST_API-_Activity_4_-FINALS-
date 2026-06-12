@@ -13,6 +13,8 @@ public interface ProductMapper {
 	public void insertProduct(Product product);
 	public Product findById(Long id);
 	public List<Product> findAllProducts();
+	public List<Product> findProductsPaged(@Param("offset") int offset,
+                 						  @Param("limit")  int limit);
 	public int countAllProducts();
 	public void decreaseStock(@Param("productId") Long productId,
 							 @Param("quantity") int quantity);
