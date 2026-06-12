@@ -11,5 +11,38 @@
         <result property="price" column="price"/>
         <result property="stock" column="stock"/>
 	</resultMap>
+	
+	<insert id="insertProduct"
+            parameterType="com.yourpackage.entity.Product"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO product (name, description, price, stock)
+        VALUES (#{name}, #{description}, #{price}, #{stock})
+    </insert>
+    
+    <select id="findById" 
+    			parameterType="long" 
+    			resultMap="ProductResultMap">
+        SELECT id, name, description, price, stock
+        FROM product
+        WHERE id = #{id}
+    </select>
+    
+    <select id="findAllProducts" 
+    			resultMap="ProductResultMap">
+        SELECT id, name, description, price, stock
+        FROM product
+        ORDER BY id ASC
+    </select>
+    
+    <select id="countAllProducts" resultType="int">
+        SELECT COUNT(*) FROM products
+    </select>
+    
+    <update id="decreaseStock">
+        UPDATE products
+        SET stock = stock - #{quantity}
+        WHERE id = #{productId}
+    </update>
 
 </mapper>
