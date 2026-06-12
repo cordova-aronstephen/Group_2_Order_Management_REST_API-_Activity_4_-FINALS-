@@ -35,12 +35,20 @@
         ORDER BY id ASC
     </select>
     
+    <select id="findProductsPaged" 
+    			resultMap="ProductResultMap">
+        SELECT id, name, description, price, stock
+        FROM product
+        ORDER BY id ASC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+    
     <select id="countAllProducts" resultType="int">
-        SELECT COUNT(*) FROM products
+        SELECT COUNT(*) FROM product
     </select>
     
     <update id="decreaseStock">
-        UPDATE products
+        UPDATE product
         SET stock = stock - #{quantity}
         WHERE id = #{productId}
     </update>
