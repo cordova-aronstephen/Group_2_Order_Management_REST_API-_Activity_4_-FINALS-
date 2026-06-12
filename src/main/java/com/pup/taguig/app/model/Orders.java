@@ -13,10 +13,9 @@ public class Orders {
 	
 	private Long id;
 	private Long customerId;
-	private Long productId;
-	private int quantity;
+	private int totalQuantity;
 	private Long statusId;
-	private Float totalPrice;
+	private Float orderPriceTotal;
 	private LocalDateTime createdAt;
 	
 }
