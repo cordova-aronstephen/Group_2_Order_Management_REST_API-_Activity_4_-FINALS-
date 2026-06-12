@@ -1,5 +1,7 @@
 package com.pup.taguig.app.dto;
 
+import java.math.BigDecimal;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +11,7 @@ public class ProductRequestDTO {
 	
 	private String name;
 	private String description;
-	private Float price;
+	private BigDecimal price;
 	private Integer stock;
 	
 }

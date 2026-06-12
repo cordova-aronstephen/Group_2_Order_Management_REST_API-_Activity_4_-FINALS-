@@ -1,5 +1,6 @@
 package com.pup.taguig.app.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ public class Product {
 	private Long id;
 	private String name;
 	private String description;
-	private Float price;
+	private BigDecimal price;
 	private Integer stock;
 	private LocalDateTime createdAt;
 	
