@@ -1,5 +1,6 @@
 package com.pup.taguig.app.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,7 +57,7 @@ public class OrdersServiceImpl implements OrdersService{
 			this.insertOrderItems(request.getItems(), orderId);
 		}
 		
-		return null;
+		return this.OrdersToOrdersDTO(orders);
 	}
 	
 	public Boolean checkProductExist(List<ProductItemRequestDTO> productItemList) {
@@ -162,9 +163,9 @@ public class OrdersServiceImpl implements OrdersService{
 		
 	}
 	
-	public OrderItem getOrderItemByOrderIdAndProductId(Long productId, Long orderId) {
+	public List<OrderItem> retrieveAllOrderItemByOrderId(Long orderId) {
 		
-		return ordersMapper.getOrderItemByOrderIdAndProductId(productId, orderId);
+		return ordersMapper.retrieveAllOrderItemByOrderId(orderId);
 		
 	}
 	
@@ -177,17 +178,81 @@ public class OrdersServiceImpl implements OrdersService{
 				);
 	}
 	
+	
 	public OrdersResponseDTO OrdersToOrdersDTO(Orders order) {
 		
-//		return new OrderResponseDTO(
-//					order.getCustomerId(),
-//					
-//					order.getTotalQuantity(),
-//					order.getOrderPriceTotal()
-//				);
+		List<OrderItem> orderItemList = this.retrieveAllOrderItemByOrderId(order.getId());
 		
-		return null;
+		List<ProductItemResponseDTO> productOrderItemList = orderItemList.stream().map(
+						OrderItem -> this.OrderItemTOProductItemResponseDTO(OrderItem)
+				).toList();
 		
+		OrdersResponseDTO orderResponseDTO = new OrdersResponseDTO();
+		
+		orderResponseDTO.setCustomerId(order.getCustomerId());
+		orderResponseDTO.setItems(productOrderItemList);
+		orderResponseDTO.setTotalQuantity(order.getTotalQuantity());
+		orderResponseDTO.setOrderPriceTotal(order.getOrderPriceTotal());
+		
+		return orderResponseDTO;
+		
+	}
+
+	@Override
+	public OrdersResponseDTO getOrderById(Long id) {
+		
+		Orders order = ordersMapper.getOrderById(id);
+		
+		if(!Objects.nonNull(order)) {
+			return null;
+		}
+		
+		return this.OrdersToOrdersDTO(order);
+	}
+	
+	public List<OrdersResponseDTO> OrdersListToResponseOrdersList(List<Orders> ordersList) {
+		
+		return ordersList.stream().map(
+					Orders -> this.OrdersToOrdersDTO(Orders)
+				).toList();
+	}
+
+	@Override
+	public List<OrdersResponseDTO> retrieveAllOrdersByCustomerId(Long id) {
+		
+		List<Orders> ordersList = ordersMapper.retrieveAllOrdersByCustomerId(id);
+		
+		return this.OrdersListToResponseOrdersList(ordersList);
+	}
+	
+	public void restockProduct(Long orderId) {
+		
+		List<OrderItem> orderItemsList = this.retrieveAllOrderItemByOrderId(orderId);
+		
+		for(OrderItem orderItem: orderItemsList) {
+			
+			productMapper.increaseStock(orderItem.getProductId(), orderItem.getQuantity());
+			
+		}
+		
+	}
+
+	@Override
+	public Boolean deleteOrderById(Long id) {
+		
+		Long STATUS_ID_PENDING = (long) 1;
+		
+		Orders order = ordersMapper.getOrderById(id);
+		
+		if(order.getStatusId().equals(STATUS_ID_PENDING)) {
+			
+			this.restockProduct(id);
+			ordersMapper.deleteOrderById(id);
+			
+			return true;
+		}
+		
+		return false;
 	}
 
 }

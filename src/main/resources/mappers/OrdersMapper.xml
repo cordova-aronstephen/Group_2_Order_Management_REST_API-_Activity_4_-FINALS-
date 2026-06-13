@@ -4,29 +4,27 @@
 
 <mapper namespace="com.pup.taguig.app.repository.OrdersMapper">
 
-	<resultMap id="ordersResultMap" 
-		type="com.pup.taguig.app.model.Orders">
-			<id property="orders_id" column="id"/>
-			<result property="customer_id" column="customerId"/>
-			<result property="total_quantity" column="totalQuantity"/>
-			<result property="status_id" column="statusId"/>
-			<result property="order_price_total" column="orderPriceTotal"/>
-			<result property="created_at" column="createdAt"/>
+	<resultMap id="ordersResultMap" type="com.pup.taguig.app.model.Orders">
+	    <id     property="id"              column="id"/>
+	    <result property="customerId"      column="customer_id"/>
+	    <result property="totalQuantity"   column="total_quantity"/>
+	    <result property="statusId"        column="status_id"/>
+	    <result property="orderPriceTotal" column="order_price_total"/>
+	    <result property="createdAt"       column="created_at"/>
 	</resultMap>
 	
-	<resultMap id="orderItemResultMap"
-		type="com.pup.taguig.app.model.OrderItem">
-			<id property="order_item_id" column="id"/>
-			<result property="order_id" column="orderId"/>
-			<result property="product_id" column="productId"/>
-			<result property="total_price" column="totalPrice"/>
-			<result property="quantity" column="quantity"/>
-			<result property="created_at" column="createdAt"/>
+	<resultMap id="orderItemResultMap" type="com.pup.taguig.app.model.OrderItem">
+	    <id     property="id"         column="id"/>
+	    <result property="orderId"    column="order_id"/>
+	    <result property="productId"  column="product_id"/>
+	    <result property="totalPrice" column="total_price"/>
+	    <result property="quantity"   column="quantity"/>
+	    <result property="createdAt"  column="created_at"/>
 	</resultMap>
 	
 	<resultMap id="statusResultMap"
 		type="com.pup.taguig.app.model.Status">
-			<id property="status_id" column="id"/>
+			<id property="id" column="id"/>
 			<result property="name" column="name"/>
 			<result property="created_at" column="createdAt"/>
 	</resultMap>
@@ -57,18 +55,25 @@
 		FROM 
 			orders
 		WHERE 
-			id=#(id)
+			id=#{id}
 	</select>
 	
 	<select id="getOrderItemByOrderIdAndProductId" resultMap="orderItemResultMap">
 		SELECT
-			product_id,
-			quantity,
-			total_price
+			*
 		FROM
 			order_item
 		WHERE 
 			(product_id = #{productId}) AND
+			(order_id = #{orderId})
+	</select>
+
+	<select  id="retrieveAllOrderItemByOrderId" resultMap="orderItemResultMap">
+		SELECT
+			*
+		FROM
+			order_item
+		WHERE 
 			(order_id = #{orderId})
 	</select>
 	
@@ -76,5 +81,14 @@
 		DELETE FROM orders
 			WHERE id=#{id}
 	</delete>
+	
+	<select  id="retrieveAllOrdersByCustomerId" resultMap="ordersResultMap">
+		SELECT
+			*
+		FROM
+			orders
+		WHERE 
+			(customer_id = #{customerId})
+	</select>
 	
 </mapper>

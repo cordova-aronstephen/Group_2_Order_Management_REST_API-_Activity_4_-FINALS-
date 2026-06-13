@@ -18,5 +18,7 @@ public interface ProductMapper {
 	public int countAllProducts();
 	public void decreaseStock(@Param("productId") Long productId,
 							 @Param("quantity") int quantity);
+	public void increaseStock(@Param("productId") Long productId,
+			 @Param("quantity") int quantity);
 	
 }

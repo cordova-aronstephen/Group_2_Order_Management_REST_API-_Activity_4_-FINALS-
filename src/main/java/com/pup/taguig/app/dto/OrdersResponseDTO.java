@@ -15,7 +15,7 @@ public class OrdersResponseDTO {
 	
 	private Long customerId; 
 	private List<ProductItemResponseDTO> items;
-	private Float totalQuantity;
+	private int totalQuantity;
 	private Float OrderPriceTotal;
 	
 }

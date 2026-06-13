@@ -82,5 +82,14 @@
         WHERE 
         	id = #{productId}
     </update>
+    
+    <update id="increaseStock">
+        UPDATE 
+        	product
+        SET 
+        	stock = stock + #{quantity}
+        WHERE 
+        	id = #{productId}
+    </update>
 
 </mapper>
