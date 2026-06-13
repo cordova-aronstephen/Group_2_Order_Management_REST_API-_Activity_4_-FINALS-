@@ -1,6 +1,7 @@
 package com.pup.taguig.app.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +21,25 @@ public class ReportController {
 
     @GetMapping("/sales")
     public ReportResponseDTO getTotalSales() {
-        return reportService.getTotalSales();
+
+        ReportResponseDTO result = null;
+
+        if (Objects.nonNull(reportService)) {
+            result = reportService.getTotalSales();
+        }
+
+        return result;
     }
 
     @GetMapping("/top-products")
     public List<TopProductResponseDTO> getTopProducts() {
-        return reportService.getTopProducts();
+
+        List<TopProductResponseDTO> result = null;
+
+        if (Objects.nonNull(reportService)) {
+            result = reportService.getTopProducts();
+        }
+
+        return result;
     }
 }

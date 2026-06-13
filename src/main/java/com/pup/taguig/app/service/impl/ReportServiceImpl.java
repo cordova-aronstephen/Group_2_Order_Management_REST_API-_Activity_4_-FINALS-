@@ -2,6 +2,8 @@ package com.pup.taguig.app.service.impl;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,24 +17,36 @@ import com.pup.taguig.app.service.ReportService;
 @Service
 public class ReportServiceImpl implements ReportService {
 
+    private static final Logger LOGGER = LogManager.getLogger(ReportServiceImpl.class);
+
     @Autowired
     private ReportMapper reportMapper;
 
     @Override
     public ReportResponseDTO getTotalSales() {
+        LOGGER.info("Enter getTotalSales");
+
         Report report = reportMapper.getTotalSales();
 
         if (report == null) {
-            return new ReportResponseDTO();
+            throw new IllegalArgumentException("Sales report not found");
         }
 
+        LOGGER.info("End getTotalSales");
         return toDTO(report);
     }
 
     @Override
     public List<TopProductResponseDTO> getTopProducts() {
+        LOGGER.info("Enter getTopProducts");
+
         List<TopProduct> products = reportMapper.getTopProducts();
 
+        if (products == null || products.isEmpty()) {
+            throw new IllegalArgumentException("Top selling products report not found");
+        }
+
+        LOGGER.info("End getTopProducts");
         return products.stream()
                 .map(product -> toDTO(product))
                 .toList();
