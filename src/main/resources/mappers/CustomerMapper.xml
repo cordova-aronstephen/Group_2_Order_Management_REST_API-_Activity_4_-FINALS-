@@ -40,8 +40,10 @@
             email,
             phone,
             created_at
-        FROM customer
-        WHERE email = #{email}
+        FROM 
+        	customer
+        WHERE 
+        	email = #{email}
     </select>
 
     <select id="getCustomerById" resultMap="customerResultMap">
@@ -53,8 +55,10 @@
             email,
             phone,
             created_at
-        FROM customer
-        WHERE id = #{id}
+        FROM 
+        	customer
+        WHERE 
+        	id = #{id}
     </select>
 
 </mapper>
