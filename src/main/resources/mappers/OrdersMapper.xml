@@ -31,18 +31,45 @@
 			<result property="created_at" column="createdAt"/>
 	</resultMap>
 	
-	<insert id="insertOrder">
+	<insert id="insertOrder" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO orders 
-			(id, customer_id, total_quantity, status_id, order_price_total)
+			(customer_id, 
+				total_quantity, 
+				status_id, 
+				order_price_total)
 		VALUES
-			(#(id), #(customer_id), #(total_quantity), #(status_id), #{order_price_total})
+			(#{customerId}, 
+				#{totalQuantity}, 
+				#{statusId}, 
+				#{orderPriceTotal})
 	</insert>
 	
-	<select id="getOrderById">
+	<insert id="insertOrderItem" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO order_item
+			(order_id, product_id, total_price, quantity)
+		VALUES
+			(#{orderId}, #{productId}, #{totalPrice}, #{quantity})
+	</insert>
+	
+	<select id="getOrderById" resultMap="ordersResultMap">
 		SELECT
 			*
-		FROM orders
-		WHERE id=#(id)
+		FROM 
+			orders
+		WHERE 
+			id=#(id)
+	</select>
+	
+	<select id="getOrderItemByOrderIdAndProductId" resultMap="orderItemResultMap">
+		SELECT
+			product_id,
+			quantity,
+			total_price
+		FROM
+			order_item
+		WHERE 
+			(product_id = #{productId}) AND
+			(order_id = #{orderId})
 	</select>
 	
 	<delete id="deleteOrderById">
