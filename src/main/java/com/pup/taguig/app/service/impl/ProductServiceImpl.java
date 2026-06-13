@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pup.taguig.app.dto.PagedResponseDTO;
 import com.pup.taguig.app.dto.ProductRequestDTO;
@@ -13,6 +14,7 @@ import com.pup.taguig.app.model.Product;
 import com.pup.taguig.app.repository.ProductMapper;
 import com.pup.taguig.app.service.ProductService;
 
+@Service
 public class ProductServiceImpl implements ProductService {
 
 	private static final Logger LOGGER = LogManager.getLogger(ProductServiceImpl.class);
@@ -22,8 +24,6 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public ProductResponseDTO createProduct(ProductRequestDTO request) {
-		
-		ProductResponseDTO result = new ProductResponseDTO();
 		
 		LOGGER.info("Enter createProduct");
 
@@ -36,7 +36,8 @@ public class ProductServiceImpl implements ProductService {
         productMapper.insertProduct(product);
 
         LOGGER.info("End createProduct");
-        return result;
+        
+        return this.toDTO(product);
 	}
 
 	@Override
