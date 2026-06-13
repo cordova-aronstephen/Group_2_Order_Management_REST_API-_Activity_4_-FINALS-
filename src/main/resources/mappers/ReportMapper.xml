@@ -19,9 +19,8 @@
     <select id="getTotalSales" resultMap="ReportResultMap">
         SELECT
             COUNT(id) AS total_orders,
-            SUM(total_amount) AS total_revenue
+            SUM(order_price_total) AS total_revenue
         FROM orders
-        WHERE status != 'CANCELLED'
     </select>
 
     <select id="getTopProducts" resultMap="TopProductResultMap">
@@ -29,13 +28,12 @@
             p.id AS product_id,
             p.name AS product_name,
             SUM(oi.quantity) AS total_quantity_sold,
-            SUM(oi.quantity * oi.price) AS revenue
+            SUM(oi.total_price) AS revenue
         FROM order_item oi
         JOIN product p
             ON oi.product_id = p.id
         JOIN orders o
             ON oi.order_id = o.id
-        WHERE o.status != 'CANCELLED'
         GROUP BY
             p.id,
             p.name
