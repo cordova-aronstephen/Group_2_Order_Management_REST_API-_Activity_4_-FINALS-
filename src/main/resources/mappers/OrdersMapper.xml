@@ -4,7 +4,7 @@
 
 <mapper namespace="com.pup.taguig.app.repository.OrdersMapper">
 
-	<resultMap id="OrdersResultMap" 
+	<resultMap id="ordersResultMap" 
 		type="com.pup.taguig.app.model.Orders">
 			<id property="orders_id" column="id"/>
 			<result property="customer_id" column="customerId"/>
@@ -14,7 +14,7 @@
 			<result property="created_at" column="createdAt"/>
 	</resultMap>
 	
-	<resultMap id="OrderItemResultMap"
+	<resultMap id="orderItemResultMap"
 		type="com.pup.taguig.app.model.OrderItem">
 			<id property="order_item_id" column="id"/>
 			<result property="order_id" column="orderId"/>
@@ -24,21 +24,30 @@
 			<result property="created_at" column="createdAt"/>
 	</resultMap>
 	
-	<resultMap id="StatusResultMap"
+	<resultMap id="statusResultMap"
 		type="com.pup.taguig.app.model.Status">
 			<id property="status_id" column="id"/>
 			<result property="name" column="name"/>
 			<result property="created_at" column="createdAt"/>
 	</resultMap>
 	
-	<insert id="InsertOrder">
+	<insert id="insertOrder">
 		INSERT INTO orders 
 			(id, customer_id, total_quantity, status_id, order_price_total)
 		VALUES
 			(#(id), #(customer_id), #(total_quantity), #(status_id), #{order_price_total})
 	</insert>
 	
-	<select id="GetOrderById">
+	<select id="getOrderById">
+		SELECT
+			*
+		FROM orders
+		WHERE id=#(id)
 	</select>
+	
+	<delete id="deleteOrderById">
+		DELETE FROM orders
+			WHERE id=#{id}
+	</delete>
 	
 </mapper>
