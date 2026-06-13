@@ -57,13 +57,9 @@ public class CustomerServiceImpl implements CustomerService {
 
         CustomerResponseDTO responseDTO = new CustomerResponseDTO();
 
-        responseDTO.setId(customer.getId());
         responseDTO.setFirstName(customer.getFirstName());
         responseDTO.setLastName(customer.getLastName());
         responseDTO.setMiddleName(customer.getMiddleName());
-        responseDTO.setEmail(customer.getEmail());
-        responseDTO.setPhone(customer.getPhone());
-        responseDTO.setCreatedAt(customer.getCreatedAt());
 
         return responseDTO;
     }
