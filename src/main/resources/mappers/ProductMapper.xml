@@ -13,44 +13,74 @@
 	</resultMap>
 	
 	<insert id="insertProduct"
-            parameterType="com.yourpackage.entity.Product"
+            parameterType="com.pup.taguig.app.model.Product"
             useGeneratedKeys="true"
             keyProperty="id">
-        INSERT INTO product (name, description, price, stock)
-        VALUES (#{name}, #{description}, #{price}, #{stock})
+        INSERT INTO product 
+        	(name, description, price, stock)
+        VALUES 
+        	(#{name}, #{description}, #{price}, #{stock})
     </insert>
     
     <select id="findById" 
     			parameterType="long" 
     			resultMap="ProductResultMap">
-        SELECT id, name, description, price, stock
-        FROM product
-        WHERE id = #{id}
+        SELECT 
+        	id, 
+       		name, 
+       		description, 
+       		price, 
+       		stock
+        FROM 
+        	product
+        WHERE 
+        	id = #{id}
     </select>
     
     <select id="findAllProducts" 
     			resultMap="ProductResultMap">
-        SELECT id, name, description, price, stock
-        FROM product
-        ORDER BY id ASC
+        SELECT 
+        	id, 
+       		name, 
+       		description, 
+       		price, 
+       		stock
+        FROM 
+        	product
+        ORDER BY 
+        	id ASC
     </select>
     
     <select id="findProductsPaged" 
     			resultMap="ProductResultMap">
-        SELECT id, name, description, price, stock
-        FROM product
-        ORDER BY id ASC
-        LIMIT #{limit} OFFSET #{offset}
+        SELECT 
+        	id, 
+       		name, 
+     		description, 
+     		price, 
+     		stock
+        FROM 
+        	product
+        ORDER BY 
+        	id ASC
+        LIMIT 
+        	#{limit} OFFSET #{offset}
     </select>
     
     <select id="countAllProducts" resultType="int">
-        SELECT COUNT(*) FROM product
+        SELECT 
+        	COUNT(*) 
+       	FROM 
+       		product
     </select>
     
     <update id="decreaseStock">
-        UPDATE product
-        SET stock = stock - #{quantity}
-        WHERE id = #{productId}
+        UPDATE 
+        	product
+        SET 
+        	stock = stock - #{quantity}
+        WHERE 
+        	id = #{productId}
     </update>
 
 </mapper>
