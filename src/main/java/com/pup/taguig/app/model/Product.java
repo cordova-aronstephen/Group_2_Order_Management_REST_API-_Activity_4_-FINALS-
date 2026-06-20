@@ -1,6 +1,5 @@
 package com.pup.taguig.app.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;

@@ -60,5 +60,11 @@
         WHERE 
         	id = #{id}
     </select>
+    
+    <update id="update" parameterType="Customer">
+    	UPDATE customer
+    		SET first_name = #{firstName}
+    		WHERE id=#{id}
+    </update>
 
 </mapper>

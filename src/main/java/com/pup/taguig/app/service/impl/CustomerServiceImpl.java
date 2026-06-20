@@ -63,4 +63,11 @@ public class CustomerServiceImpl implements CustomerService {
 
         return responseDTO;
     }
+
+	@Override
+	public void updateCustomer(Customer customer) {
+		
+		customerMapper.update(customer);
+		
+	}
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.pup.taguig.app.dto.CustomerRequestDTO;
 import com.pup.taguig.app.dto.CustomerResponseDTO;
 import com.pup.taguig.app.dto.OrdersResponseDTO;
+import com.pup.taguig.app.model.Customer;
 import com.pup.taguig.app.service.CustomerService;
 import com.pup.taguig.app.service.OrdersService;
 
@@ -45,4 +46,12 @@ public class CustomerController {
 		
 		return ordersService.retrieveAllOrdersByCustomerId(id);
 	}
+    
+    @PutMapping("/")	
+    private String updateCustomer(@RequestBody Customer customer) {
+    	
+    	customerService.updateCustomer(customer);
+    	
+    	return "Customer updated";
+    }
 }

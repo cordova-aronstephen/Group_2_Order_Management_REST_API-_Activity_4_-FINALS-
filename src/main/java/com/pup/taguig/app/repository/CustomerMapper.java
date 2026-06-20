@@ -12,4 +12,6 @@ public interface CustomerMapper {
     public Customer findByEmail(String email);
 
     public Customer getCustomerById(int id);
+    
+    public void update(Customer customer);
 }
